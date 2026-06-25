@@ -3,207 +3,490 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Beatwhiz The Oracle — The Vault</title>
+<title>Beatwhiz The Oracle — Broadcasting From Africa To The World</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;800;900&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;600;800&family=Space+Mono&display=swap');
+  :root{
+    --black:#070605;
+    --black-2:#0d0b0a;
+    --card:#131110;
+    --red:#c81e2e;
+    --red-dim:#7a1620;
+    --red-glow:rgba(200,30,46,0.45);
+    --bone:#ece7dd;
+    --bone-dim:#9b958a;
+    --line:rgba(236,231,221,0.08);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--black);
+    color:var(--bone);
+    font-family:'Inter',sans-serif;
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important;}
+  }
 
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  .wrap{max-width:560px;margin:0 auto;padding:0 24px;position:relative;}
 
-body {
-  background: #080808;
-  color: #f5f0eb;
-  font-family: 'Syne', 'Arial Black', sans-serif;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 40px 24px;
-}
+  /* ambient frequency line background */
+  .freq-bg{
+    position:fixed; inset:0; z-index:0; pointer-events:none; opacity:0.5;
+  }
+  .freq-bg svg{width:100%;height:100%;}
 
-.page {
-  max-width: 420px;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-}
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    padding:90px 0 60px;
+    z-index:1;
+  }
+  .badge{
+    display:inline-flex;align-items:center;gap:8px;
+    border:1px solid var(--line);
+    background:rgba(200,30,46,0.06);
+    border-radius:100px;
+    padding:7px 14px 7px 10px;
+    font-family:'Space Mono',monospace;
+    font-size:11px;letter-spacing:0.12em;
+    color:var(--bone-dim);
+    width:max-content;
+    margin-bottom:28px;
+    opacity:0;
+    animation:fadeUp 0.8s ease forwards;
+  }
+  .dot{
+    width:7px;height:7px;border-radius:50%;background:var(--red);
+    box-shadow:0 0 0 0 var(--red-glow);
+    animation:pulse 2s infinite;
+  }
+  @keyframes pulse{
+    0%{box-shadow:0 0 0 0 var(--red-glow);}
+    70%{box-shadow:0 0 0 8px rgba(200,30,46,0);}
+    100%{box-shadow:0 0 0 0 rgba(200,30,46,0);}
+  }
+  h1.brand{
+    font-family:'Unbounded',sans-serif;
+    font-weight:900;
+    font-size:clamp(40px,11vw,58px);
+    line-height:0.98;
+    letter-spacing:-0.01em;
+    margin-bottom:6px;
+    opacity:0;
+    animation:fadeUp 0.8s ease 0.1s forwards;
+  }
+  h1.brand .the{
+    display:block;
+    font-size:0.34em;
+    font-weight:600;
+    letter-spacing:0.28em;
+    color:var(--red);
+    margin-bottom:10px;
+    font-family:'Space Mono',monospace;
+  }
+  .sub{
+    font-family:'Unbounded',sans-serif;
+    font-weight:600;
+    font-size:clamp(15px,4vw,18px);
+    color:var(--bone-dim);
+    letter-spacing:0.01em;
+    margin-bottom:22px;
+    opacity:0;
+    animation:fadeUp 0.8s ease 0.2s forwards;
+  }
+  .lede{
+    font-size:16px;
+    line-height:1.6;
+    color:var(--bone-dim);
+    max-width:440px;
+    margin-bottom:36px;
+    opacity:0;
+    animation:fadeUp 0.8s ease 0.3s forwards;
+  }
+  .lede strong{color:var(--bone);font-weight:600;}
 
-.tag {
-  font-family: 'Space Mono', monospace;
-  font-size: 11px;
-  letter-spacing: 0.25em;
-  color: #d4a017;
-  border: 1px solid rgba(212,160,23,0.4);
-  padding: 8px 18px;
-  margin-bottom: 36px;
-  text-transform: uppercase;
-}
+  .stat-row{
+    display:flex;
+    gap:24px;
+    margin-bottom:40px;
+    opacity:0;
+    animation:fadeUp 0.8s ease 0.4s forwards;
+  }
+  .stat-row .s{display:flex;flex-direction:column;}
+  .stat-row .n{font-family:'Unbounded',sans-serif;font-weight:800;font-size:19px;color:var(--bone);}
+  .stat-row .l{font-size:10.5px;letter-spacing:0.06em;color:var(--bone-dim);text-transform:uppercase;margin-top:2px;}
 
-.name {
-  font-family: 'Bebas Neue', 'Arial Black', Impact, sans-serif;
-  font-size: 80px;
-  line-height: 0.85;
-  color: #f5f0eb;
-  letter-spacing: 2px;
-}
+  .cta-stack{opacity:0;animation:fadeUp 0.8s ease 0.5s forwards;}
+  .btn{
+    display:flex;align-items:center;justify-content:center;
+    width:100%;
+    padding:18px 24px;
+    border-radius:8px;
+    font-family:'Unbounded',sans-serif;
+    font-weight:700;
+    font-size:14.5px;
+    letter-spacing:0.06em;
+    text-decoration:none;
+    transition:transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+    cursor:pointer;
+    border:none;
+  }
+  .btn-primary{
+    background:var(--red);
+    color:#fff;
+    box-shadow:0 8px 30px -8px var(--red-glow);
+    margin-bottom:10px;
+  }
+  .btn-primary:hover{transform:translateY(-2px); box-shadow:0 12px 36px -6px var(--red-glow);}
+  .btn-caption{
+    text-align:center;font-size:12px;color:var(--bone-dim);margin-bottom:18px;font-family:'Inter',sans-serif;
+  }
+  .btn-secondary{
+    background:transparent;
+    border:1px solid var(--line);
+    color:var(--bone);
+  }
+  .btn-secondary:hover{border-color:rgba(236,231,221,0.25); background:rgba(255,255,255,0.02);}
+  .btn-caption.last{margin-top:10px;margin-bottom:0;}
 
-.name-red {
-  font-family: 'Bebas Neue', 'Arial Black', Impact, sans-serif;
-  font-size: 80px;
-  line-height: 0.85;
-  color: #c8102e;
-  letter-spacing: 2px;
-  display: block;
-  margin-bottom: 28px;
-}
+  /* ---------- SECTION GENERIC ---------- */
+  section{
+    position:relative;
+    z-index:1;
+    padding:90px 0;
+    border-top:1px solid var(--line);
+  }
+  .eyebrow{
+    font-family:'Space Mono',monospace;
+    font-size:11px;
+    letter-spacing:0.18em;
+    color:var(--red);
+    text-transform:uppercase;
+    margin-bottom:14px;
+  }
+  h2{
+    font-family:'Unbounded',sans-serif;
+    font-weight:800;
+    font-size:clamp(26px,7vw,32px);
+    line-height:1.12;
+    margin-bottom:36px;
+    max-width:420px;
+    letter-spacing:-0.01em;
+  }
 
-.line {
-  width: 60px;
-  height: 3px;
-  background: linear-gradient(90deg, #c8102e, #d4a017);
-  margin: 0 auto 28px auto;
-}
+  /* WHY JOIN cards */
+  .reason-list{display:flex;flex-direction:column;gap:1px;border-top:1px solid var(--line);}
+  .reason{
+    display:flex;gap:18px;align-items:flex-start;
+    padding:24px 0;
+    border-bottom:1px solid var(--line);
+  }
+  .reason .mark{
+    font-family:'Space Mono',monospace;color:var(--red-dim);font-size:13px;padding-top:3px;flex-shrink:0;
+  }
+  .reason p{font-size:15.5px;line-height:1.5;color:var(--bone);}
 
-.headline {
-  font-size: 22px;
-  font-weight: 800;
-  line-height: 1.3;
-  margin-bottom: 16px;
-  color: #f5f0eb;
-}
+  /* NETWORK STATUS */
+  .stat-grid{
+    display:grid;grid-template-columns:1fr 1fr;gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+    border-radius:10px;
+    overflow:hidden;
+    margin-bottom:44px;
+  }
+  .stat-cell{
+    background:var(--black-2);
+    padding:26px 18px;
+  }
+  .stat-cell .n{font-family:'Unbounded',sans-serif;font-weight:800;font-size:24px;color:var(--bone);}
+  .stat-cell .l{font-size:10.5px;letter-spacing:0.05em;color:var(--bone-dim);text-transform:uppercase;margin-top:6px;}
 
-.sub {
-  font-size: 15px;
-  line-height: 1.7;
-  color: rgba(245,240,235,0.55);
-  margin-bottom: 20px;
-}
+  .signal-map{
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:24px;
+  }
+  .signal-map .title{
+    font-family:'Space Mono',monospace;font-size:11px;letter-spacing:0.1em;color:var(--bone-dim);
+    margin-bottom:16px;text-transform:uppercase;
+  }
+  .country-list{display:flex;flex-wrap:wrap;gap:10px;}
+  .country{
+    font-size:13px;
+    padding:8px 14px;
+    border:1px solid var(--line);
+    border-radius:100px;
+    color:var(--bone);
+    display:flex;align-items:center;gap:7px;
+  }
+  .country::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--red);flex-shrink:0;}
 
-.proof {
-  font-family: 'Space Mono', monospace;
-  font-size: 12px;
-  color: #d4a017;
-  margin-bottom: 36px;
-  letter-spacing: 0.08em;
-}
+  /* TRANSMISSIONS */
+  .tx-list{display:flex;flex-direction:column;gap:14px;}
+  .tx-card{
+    display:flex;align-items:center;gap:16px;
+    border:1px solid var(--line);
+    border-radius:12px;
+    padding:16px;
+    background:linear-gradient(180deg, rgba(255,255,255,0.015), transparent);
+    transition:border-color 0.25s ease, transform 0.25s ease;
+  }
+  .tx-card:hover{border-color:rgba(200,30,46,0.4); transform:translateX(2px);}
+  .tx-cover{
+    width:58px;height:58px;border-radius:8px;flex-shrink:0;
+    background:radial-gradient(circle at 30% 30%, var(--red-dim), #0a0908 70%);
+    display:flex;align-items:center;justify-content:center;
+    position:relative;overflow:hidden;
+  }
+  .tx-cover::after{
+    content:"";position:absolute;inset:0;
+    background:repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,0.4) 4px);
+  }
+  .tx-cover span{font-family:'Space Mono',monospace;font-size:10px;color:var(--bone);z-index:1;letter-spacing:0.04em;}
+  .tx-meta .num{font-family:'Space Mono',monospace;font-size:10.5px;color:var(--red);letter-spacing:0.08em;margin-bottom:3px;}
+  .tx-meta .name{font-family:'Unbounded',sans-serif;font-weight:700;font-size:16px;color:var(--bone);}
 
-.proof strong {
-  color: #f5f0eb;
-  font-size: 18px;
-}
+  /* ARCHIVE */
+  .archive-box{
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:28px 24px;
+    background:linear-gradient(160deg, rgba(200,30,46,0.05), transparent 60%);
+    margin-bottom:30px;
+  }
+  .archive-row{
+    display:flex;align-items:center;gap:12px;
+    padding:13px 0;
+    border-bottom:1px solid var(--line);
+    font-size:15px;
+  }
+  .archive-row:last-child{border-bottom:none;}
+  .check{color:var(--red);font-family:'Space Mono',monospace;flex-shrink:0;}
 
-.btn {
-  display: block;
-  width: 100%;
-  padding: 22px 32px;
-  background: #c8102e;
-  color: #f5f0eb;
-  font-family: 'Bebas Neue', 'Arial Black', Impact, sans-serif;
-  font-size: 24px;
-  letter-spacing: 0.15em;
-  text-decoration: none;
-  text-align: center;
-  box-shadow: 0 0 40px rgba(200,16,46,0.5);
-  transition: box-shadow 0.2s, transform 0.2s;
-}
+  /* ORACLE QUOTE */
+  .oracle-section{
+    text-align:left;
+  }
+  .quote{
+    font-family:'Unbounded',sans-serif;
+    font-weight:600;
+    font-size:clamp(20px,5.5vw,24px);
+    line-height:1.4;
+    color:var(--bone);
+    border-left:2px solid var(--red);
+    padding-left:20px;
+    margin-bottom:20px;
+  }
+  .oracle-body{color:var(--bone-dim);font-size:15px;line-height:1.6;padding-left:22px;}
 
-.btn:hover {
-  box-shadow: 0 0 60px rgba(200,16,46,0.8);
-  transform: translateY(-2px);
-}
+  /* FINAL */
+  .final{
+    text-align:center;
+    padding-top:100px;
+    padding-bottom:100px;
+  }
+  .final h2{margin:0 auto 18px;max-width:340px;text-align:center;}
+  .final .body{
+    color:var(--bone-dim);
+    font-size:15.5px;
+    line-height:1.7;
+    max-width:340px;
+    margin:0 auto 40px;
+  }
+  .final .body em{color:var(--bone);font-style:normal;}
 
-.note {
-  font-family: 'Space Mono', monospace;
-  font-size: 10px;
-  color: rgba(245,240,235,0.3);
-  margin-top: 14px;
-  letter-spacing: 0.1em;
-}
+  footer{
+    text-align:center;
+    padding:48px 0 60px;
+    border-top:1px solid var(--line);
+  }
+  footer .fbrand{font-family:'Unbounded',sans-serif;font-weight:800;font-size:15px;letter-spacing:0.02em;margin-bottom:6px;}
+  footer .ftag{font-family:'Space Mono',monospace;font-size:11px;color:var(--red);letter-spacing:0.1em;margin-bottom:4px;}
+  footer .fline{font-size:12px;color:var(--bone-dim);}
 
-.features {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 16px;
-  margin-top: 48px;
-  padding-top: 32px;
-  border-top: 1px solid rgba(255,255,255,0.07);
-  width: 100%;
-}
+  @keyframes fadeUp{
+    from{opacity:0;transform:translateY(14px);}
+    to{opacity:1;transform:translateY(0);}
+  }
+  .reveal{opacity:0;transform:translateY(18px);transition:opacity 0.7s ease, transform 0.7s ease;}
+  .reveal.in{opacity:1;transform:translateY(0);}
 
-.feat-icon { font-size: 22px; margin-bottom: 8px; }
-
-.feat-text {
-  font-family: 'Space Mono', monospace;
-  font-size: 9px;
-  color: rgba(245,240,235,0.4);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  line-height: 1.5;
-}
-
-.footer {
-  margin-top: 40px;
-  font-family: 'Space Mono', monospace;
-  font-size: 9px;
-  color: rgba(245,240,235,0.15);
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-}
-
-body::after {
-  content: '';
-  position: fixed;
-  top: -200px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 500px;
-  height: 400px;
-  background: radial-gradient(ellipse, rgba(200,16,46,0.2) 0%, transparent 70%);
-  pointer-events: none;
-  z-index: -1;
-}
+  a, button{-webkit-tap-highlight-color:transparent;}
+  :focus-visible{outline:2px solid var(--red);outline-offset:3px;}
 </style>
 </head>
 <body>
-<div class="page">
 
-  <div class="tag">🔒 Private Access Only</div>
+<div class="freq-bg" aria-hidden="true">
+  <svg viewBox="0 0 400 900" preserveAspectRatio="none">
+    <path id="freqpath" d="M0,450 Q100,420 200,450 T400,450" stroke="rgba(200,30,46,0.18)" stroke-width="1" fill="none"/>
+  </svg>
+</div>
 
-  <div class="name">Beatwhiz</div>
-  <span class="name-red">The Oracle</span>
+<!-- HERO -->
+<div class="wrap">
+<section class="hero" style="border-top:none;padding-top:90px;">
+  <div class="badge"><span class="dot"></span>SIGNAL DETECTED</div>
+  <h1 class="brand"><span class="the">BEATWHIZ THE</span>ORACLE</h1>
+  <div class="sub">Broadcasting From Africa To The World</div>
+  <p class="lede">Original <strong>Zimshatta</strong> music — dark Amapiano × Dancehall frequencies inspired by African nightlife, released directly through the Signal Network.</p>
 
-  <div class="line"></div>
-
-  <h1 class="headline">I don't release my best music publicly.</h1>
-
-  <p class="sub">The tracks that hit different — the ones that keep you up at night — they don't live on Spotify. They live in the Vault.</p>
-
-  <div class="proof"><strong>41</strong> insiders already have what you're missing</div>
-
-  <a class="btn" href="https://whatsapp.com/channel/0029VbBj7QT4IBhDPUzyZq3O" target="_blank">
-    JOIN THE ORACLE VAULT →
-  </a>
-
-  <p class="note">Free to join · Exclusive drops · No algorithm</p>
-
-  <div class="features">
-    <div>
-      <div class="feat-icon">🎵</div>
-      <div class="feat-text">Tracks never on streaming</div>
-    </div>
-    <div>
-      <div class="feat-icon">⚡</div>
-      <div class="feat-text">First access always</div>
-    </div>
-    <div>
-      <div class="feat-icon">🌍</div>
-      <div class="feat-text">Africa to the world</div>
-    </div>
+  <div class="stat-row">
+    <div class="s"><span class="n">3.1M+</span><span class="l">Views</span></div>
+    <div class="s"><span class="n">243K+</span><span class="l">Reactions</span></div>
+    <div class="s"><span class="n">12.9K+</span><span class="l">Shares</span></div>
   </div>
 
-  <div class="footer">Beatwhiz The Oracle · Afro-Fusion × Dancehall · The Vault</div>
-
+  <div class="cta-stack">
+    <a href="https://whatsapp.com/channel/0029VbBj7QT4IBhDPUzyZq3O" target="_blank" rel="noopener" class="btn btn-primary">ENTER THE SIGNAL</a>
+    <div class="btn-caption">Join free and receive future transmissions first.</div>
+    <a href="https://payhip.com/BeatwhizDrops" target="_blank" rel="noopener" class="btn btn-secondary">OPEN THE ARCHIVE</a>
+    <div class="btn-caption last">Access exclusive music, WAVs and unreleased frequencies.</div>
+  </div>
+</section>
 </div>
+
+<!-- WHY JOIN -->
+<section>
+<div class="wrap reveal">
+  <div class="eyebrow">The Signal Network</div>
+  <h2>Why people join the Signal</h2>
+  <div class="reason-list">
+    <div class="reason"><span class="mark">01</span><p>Receive new music before public release</p></div>
+    <div class="reason"><span class="mark">02</span><p>Access exclusive transmissions</p></div>
+    <div class="reason"><span class="mark">03</span><p>Join a growing global network</p></div>
+    <div class="reason"><span class="mark">04</span><p>Support independent African creativity</p></div>
+  </div>
+</div>
+</section>
+
+<!-- NETWORK STATUS -->
+<section>
+<div class="wrap reveal">
+  <div class="eyebrow">Live Data</div>
+  <h2>Network status</h2>
+  <div class="stat-grid">
+    <div class="stat-cell"><div class="n">3.1M+</div><div class="l">Broadcast Views</div></div>
+    <div class="stat-cell"><div class="n">243K+</div><div class="l">Signal Reactions</div></div>
+    <div class="stat-cell"><div class="n">12.9K+</div><div class="l">Shares</div></div>
+    <div class="stat-cell"><div class="n">50.9K+</div><div class="l">Profile Visits</div></div>
+  </div>
+  <div class="signal-map">
+    <div class="title">Signal Received In</div>
+    <div class="country-list">
+      <span class="country">Zimbabwe</span>
+      <span class="country">South Africa</span>
+      <span class="country">United Kingdom</span>
+      <span class="country">Germany</span>
+      <span class="country">France</span>
+      <span class="country">United States</span>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- TRANSMISSIONS -->
+<section>
+<div class="wrap reveal">
+  <div class="eyebrow">The Catalog</div>
+  <h2>Featured transmissions</h2>
+  <div class="tx-list">
+    <div class="tx-card">
+      <div class="tx-cover"><span>001</span></div>
+      <div class="tx-meta"><div class="num">TRANSMISSION 001</div><div class="name">Ndini</div></div>
+    </div>
+    <div class="tx-card">
+      <div class="tx-cover"><span>002</span></div>
+      <div class="tx-meta"><div class="num">TRANSMISSION 002</div><div class="name">Asigoduki</div></div>
+    </div>
+    <div class="tx-card">
+      <div class="tx-cover"><span>003</span></div>
+      <div class="tx-meta"><div class="num">TRANSMISSION 003</div><div class="name">Huchi Daddy</div></div>
+    </div>
+    <div class="tx-card">
+      <div class="tx-cover"><span>004</span></div>
+      <div class="tx-meta"><div class="num">TRANSMISSION 004</div><div class="name">Randela</div></div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ARCHIVE -->
+<section id="archive">
+<div class="wrap reveal">
+  <div class="eyebrow">Members Only</div>
+  <h2>Inside the Archive</h2>
+  <div class="archive-box">
+    <div class="archive-row"><span class="check">✓</span>Exclusive Songs</div>
+    <div class="archive-row"><span class="check">✓</span>WAV Downloads</div>
+    <div class="archive-row"><span class="check">✓</span>Instrumentals</div>
+    <div class="archive-row"><span class="check">✓</span>Voice Notes</div>
+    <div class="archive-row"><span class="check">✓</span>Cover Art</div>
+    <div class="archive-row"><span class="check">✓</span>Unreleased Frequencies</div>
+  </div>
+  <a href="https://payhip.com/b/XVixT" target="_blank" rel="noopener" class="btn btn-primary">ACCESS THE ARCHIVE</a>
+</div>
+</section>
+
+<!-- ORACLE -->
+<section class="oracle-section">
+<div class="wrap reveal">
+  <div class="eyebrow">From The Oracle</div>
+  <p class="quote">Created between Zimbabwe memories and Cape Town nights.</p>
+  <p class="oracle-body">Beatwhiz creates Zimshatta frequencies for people searching for something different.</p>
+</div>
+</section>
+
+<!-- FINAL -->
+<section id="signal" class="final">
+<div class="wrap reveal">
+  <h2>Don't miss the next transmission</h2>
+  <p class="body">Some frequencies reach the public.<br>Others stay <em>inside the Signal</em>.<br>Join now and receive future broadcasts first.</p>
+  <a href="https://whatsapp.com/channel/0029VbBj7QT4IBhDPUzyZq3O" target="_blank" rel="noopener" class="btn btn-primary" style="max-width:340px;margin:0 auto;">ENTER THE SIGNAL</a>
+</div>
+</section>
+
+<footer>
+  <div class="fbrand">BEATWHIZ THE ORACLE</div>
+  <div class="ftag">#FLAVOURANDRHYTHM</div>
+  <div class="fline">Broadcasting From Africa To The World</div>
+</footer>
+
+<script>
+  // scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); obs.unobserve(e.target); } });
+  }, {threshold:0.15});
+  reveals.forEach(r=>obs.observe(r));
+
+  // ambient frequency waveform animation
+  const path = document.getElementById('freqpath');
+  let t = 0;
+  function animateFreq(){
+    t += 0.012;
+    const amp = 18 + Math.sin(t*0.5)*6;
+    let d = "M0,450 ";
+    for(let x=0;x<=400;x+=20){
+      const y = 450 + Math.sin((x*0.04)+t*2)*amp*0.4 + Math.sin((x*0.01)+t)*amp*0.3;
+      d += `L${x},${y} `;
+    }
+    path.setAttribute('d', d);
+    requestAnimationFrame(animateFreq);
+  }
+  if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+    animateFreq();
+  }
+</script>
+
 </body>
 </html>
