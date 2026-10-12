@@ -1,0 +1,43 @@
+# Copy to plugins/pocket/CMakeLists.txt when the source/test files are implemented.
+cmake_minimum_required(VERSION 3.22)
+if(APPLE)
+    set(CMAKE_OSX_DEPLOYMENT_TARGET "11.0" CACHE STRING "Minimum macOS version")
+endif()
+project(BeatwhizPocket VERSION 0.1.0 LANGUAGES C CXX)
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+include(FetchContent)
+FetchContent_Declare(JUCE
+    GIT_REPOSITORY https://github.com/juce-framework/JUCE.git
+    GIT_TAG 51a8a6d7aeae7326956d747737ccf1575e61e209)
+FetchContent_MakeAvailable(JUCE)
+
+juce_add_plugin(BeatwhizPocket
+    COMPANY_NAME "Beatwhiz"
+    BUNDLE_ID "com.beatwhiz.pocket"
+    PLUGIN_MANUFACTURER_CODE Btwz
+    PLUGIN_CODE Bpkt
+    PRODUCT_NAME "Beatwhiz Pocket"
+    FORMATS VST3
+    VST3_CATEGORIES Fx Dynamics
+    IS_SYNTH FALSE
+    NEEDS_MIDI_INPUT FALSE
+    NEEDS_MIDI_OUTPUT FALSE
+    IS_MIDI_EFFECT FALSE
+    COPY_PLUGIN_AFTER_BUILD FALSE)
+target_sources(BeatwhizPocket PRIVATE
+    Source/PluginProcessor.cpp Source/PluginProcessor.h
+    Source/PluginEditor.cpp Source/PluginEditor.h
+    Source/Parameters.h Source/dsp/KeyDetector.h Source/dsp/PocketDSP.h)
+target_compile_definitions(BeatwhizPocket PUBLIC
+    JUCE_WEB_BROWSER=0 JUCE_USE_CURL=0 JUCE_VST3_CAN_REPLACE_VST2=0)
+target_link_libraries(BeatwhizPocket PRIVATE
+    juce::juce_audio_utils juce::juce_dsp
+    PUBLIC juce::juce_recommended_config_flags juce::juce_recommended_warning_flags)
+
+enable_testing()
+juce_add_console_app(PocketTests PRODUCT_NAME "Pocket Tests")
+target_sources(PocketTests PRIVATE tests/PocketTests.cpp)
+# Link the actual shared processor implementation, not a test-only duplicate.
+target_link_libraries(PocketTests PRIVATE BeatwhizPocket juce::juce_audio_utils juce::juce_dsp)
+add_test(NAME PocketTests COMMAND PocketTests)

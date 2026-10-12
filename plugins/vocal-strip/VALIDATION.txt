@@ -1,0 +1,31 @@
+IMPORTED HISTORICAL RECORD — not rerun during repository import on 2026-10-12.
+The repository adds a pinned Git fallback for JUCE; Mac build remains unverified.
+
+Beatwhiz Vocal Strip 0.1.0 — validation
+Date: 2026-10-11
+Environment: Linux x86_64; GCC; unmodified JUCE 8.0.6
+
+Compiled and executed the actual VocalDSP.h used by the plugin, linked to
+JUCE core, events, audio_basics, audio_formats and dsp modules.
+
+PASS 44100 Hz: passband, HPF, compression, gain, stereo
+PASS 48000 Hz: passband, HPF, compression, gain, stereo
+PASS 96000 Hz: passband, HPF, compression, gain, stereo
+PASS mono and block-size invariance (1 versus 511 samples)
+PASS silence, empty block, parameter extremes, reset
+ALL DSP TESTS PASSED
+
+Full PluginProcessor.cpp, including editor: g++ -std=c++17 -fsyntax-only PASS.
+BUILD_MAC.command: bash -n PASS.
+Bundled JUCE source SHA-256:
+95752f8e8b37d802b4c10182bc757de7d88f0c8899e879afa8798589be306a11
+
+NOT VERIFIED HERE:
+- Complete GUI/plugin binary linkage (Linux GUI build dependencies unavailable).
+- macOS compilation, local codesigning and installation.
+- FL Studio scanning, playback, automation, bypass and session recall.
+- Vocal audition, clipping behaviour in the host, and subjective sound quality.
+- Apple notarization/distribution signing (installer uses local ad-hoc signing).
+
+The installer runs DSP tests again after the native Mac build.
+A passing engine test is not a substitute for host validation.

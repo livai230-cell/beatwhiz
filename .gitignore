@@ -1,0 +1,7 @@
+**/build*/
+**/logs/
+**/.build-tools/
+**/.DS_Store
+**/third_party/
+*.vst3/
+*.component/
